@@ -12,7 +12,8 @@ import {
 } from "lucide-react";
 import { services } from "@/data/services";
 import { site } from "@/data/site";
-
+import Image from "next/image";
+import logo from "../public/images/logo.webp";
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -42,8 +43,16 @@ export default function Header() {
       {/* Main nav */}
       <div className="container-x flex items-center justify-between py-3">
         <Link href="/" className="flex items-center gap-2">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-white">
-            <Wrench size={20} />
+          <span className="flex h-10 w-50 items-center justify-center rounded-xl  text-white">
+            {/* <Wrench size={20} /> */}
+            <Image
+              key={logo}
+              src={logo}
+              alt="Yaman Appliances"
+              width={62}
+              height={60}
+              className=" w-full rounded-full object-cover"
+            />
           </span>
           <span className="leading-tight">
             <span className="block text-lg font-extrabold text-brand-950">

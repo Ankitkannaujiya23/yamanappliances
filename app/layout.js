@@ -5,7 +5,7 @@ import StickyCallBar from "@/components/StickyCallBar";
 import { site } from "@/data/site";
 
 export const metadata = {
-  metadataBase: new URL("https://www.consumerservicecentre.example"),
+  metadataBase: new URL("https://yamanappliances.com"),
   title: {
     default: `${site.name} | Home Appliance Repair Service in ${site.city}`,
     template: `%s | ${site.name}`,
@@ -25,7 +25,7 @@ export const metadata = {
     title: `${site.name} | Home Appliance Repair Service in ${site.city}`,
     description:
       "Book trusted doorstep repair for AC, TV, Refrigerator, Washing Machine, Cooler and more home appliances across Delhi NCR.",
-    url: "https://www.consumerservicecentre.example",
+    url: "https://yamanappliances.com/",
     siteName: site.name,
     locale: "en_IN",
     type: "website",
