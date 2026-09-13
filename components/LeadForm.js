@@ -1,24 +1,11 @@
+
 // "use client";
 
-// import { useMemo, useState } from "react";
+// import { useEffect, useMemo, useState } from "react";
 // import { AlertCircle, CheckCircle2, Loader2, Send } from "lucide-react";
-// import { services } from "@/data/services";
 
+// const API_BASE = "http://localhost:5000/api/consumerservices";
 // const BOOKING_API_URL = "http://localhost:5000/api/booking";
-
-// // Keep these values in sync with the IDs configured in the booking backend.
-// const serviceOptions = services.map((service, index) => ({
-//   id: index + 1,
-//   name: service.name,
-//   issues: service.commonIssues,
-// }));
-
-
-// const serviceTypeOptions = [
-//   { id: 1, name: "Repair" },
-//   { id: 2, name: "General Service" },
-//   { id: 3, name: "Installation" },
-// ];
 
 // const timeOptions = ["09:00", "11:00", "13:00", "15:00", "17:00"];
 // const fullNamePattern = /^[A-Za-z]+(?:\s+[A-Za-z]+)+$/;
@@ -49,21 +36,111 @@
 //   return new Date(today.getTime() - offset).toISOString().split("T")[0];
 // }
 
+// // De-duplicates servicetypes rows (see note on the services detail page —
+// // some rows currently exist twice in the DB) keeping the most recent one.
+// function dedupeByName(rows) {
+//   const latestByName = new Map();
+//   for (const row of rows) {
+//     const existing = latestByName.get(row.name);
+//     if (!existing || new Date(row.created_at) > new Date(existing.created_at)) {
+//       latestByName.set(row.name, row);
+//     }
+//   }
+//   return Array.from(latestByName.values());
+// }
+
 // export default function LeadForm({ presetService = "", compact = false }) {
-//   const presetServiceId = useMemo(
-//     () => String(serviceOptions.find((service) => service.name === presetService)?.id || ""),
-//     [presetService],
-//   );
-//   const [form, setForm] = useState({
-//     ...initialForm,
-//     serviceId: presetServiceId,
-//   });
+//   const [services, setServices] = useState([]);
+//   const [servicesLoading, setServicesLoading] = useState(true);
+
+//   const [serviceTypes, setServiceTypes] = useState([]);
+//   const [serviceTypesLoading, setServiceTypesLoading] = useState(false);
+
+//   const [issues, setIssues] = useState([]);
+//   const [issuesLoading, setIssuesLoading] = useState(false);
+
+//   const [form, setForm] = useState(initialForm);
 //   const [status, setStatus] = useState("idle");
 //   const [errors, setErrors] = useState({});
 //   const [submitError, setSubmitError] = useState("");
 
-//   const selectedService = serviceOptions.find(
-//     (service) => String(service.id) === form.serviceId,
+//   // Load the appliance/service list once on mount.
+//   useEffect(() => {
+//     let cancelled = false;
+//     async function loadServices() {
+//       try {
+//         const res = await fetch(`${API_BASE}/getallservices`);
+//         const result = await res.json();
+//         if (!cancelled && result?.success) {
+//           setServices(result.data);
+//         }
+//       } catch (error) {
+//         console.error("Error fetching services:", error);
+//       } finally {
+//         if (!cancelled) setServicesLoading(false);
+//       }
+//     }
+//     loadServices();
+//     return () => {
+//       cancelled = true;
+//     };
+//   }, []);
+
+//   // Once services are loaded, apply the presetService (from a service
+//   // detail page's "Book <ServiceName>") by matching its name.
+//   useEffect(() => {
+//     if (!presetService || services.length === 0) return;
+//     const match = services.find((s) => s.name === presetService);
+//     if (match) {
+//       setForm((current) => ({ ...current, serviceId: String(match.id) }));
+//     }
+//   }, [presetService, services]);
+
+//   // Whenever the selected appliance changes, fetch its service types and
+//   // common issues in parallel, and reset the two dependent fields.
+//   useEffect(() => {
+//     if (!form.serviceId) {
+//       setServiceTypes([]);
+//       setIssues([]);
+//       return;
+//     }
+
+//     let cancelled = false;
+//     setServiceTypesLoading(true);
+//     setIssuesLoading(true);
+
+//     fetch(`${API_BASE}/servicetypes/${form.serviceId}`)
+//       .then((res) => res.json())
+//       .then((result) => {
+//         if (!cancelled && result?.success) {
+//           setServiceTypes(dedupeByName(result.data));
+//         }
+//       })
+//       .catch((error) => console.error("Error fetching service types:", error))
+//       .finally(() => {
+//         if (!cancelled) setServiceTypesLoading(false);
+//       });
+
+//     fetch(`${API_BASE}/commonissues/${form.serviceId}`)
+//       .then((res) => res.json())
+//       .then((result) => {
+//         if (!cancelled && result?.success) {
+//           setIssues(result.data);
+//         }
+//       })
+//       .catch((error) => console.error("Error fetching common issues:", error))
+//       .finally(() => {
+//         if (!cancelled) setIssuesLoading(false);
+//       });
+
+//     return () => {
+//       cancelled = true;
+//     };
+//   }, [form.serviceId]);
+
+//   const selectedService = useMemo(
+//     () => services.find((s) => String(s.id) === form.serviceId),
+//     [services, form.serviceId],
 //   );
 
 //   function handleChange(event) {
@@ -76,7 +153,8 @@
 //     setForm((current) => ({
 //       ...current,
 //       [name]: nextValue,
-//       ...(name === "serviceId" ? { issueId: "" } : {}),
+//       // Changing the appliance invalidates whatever was picked below it.
+//       ...(name === "serviceId" ? { serviceTypeId: "", issueId: "" } : {}),
 //     }));
 //     setErrors((current) => ({ ...current, [name]: "" }));
 //     setSubmitError("");
@@ -102,12 +180,12 @@
 //     if (form.address.trim().length < 5) {
 //       nextErrors.address = "Enter a complete address";
 //     }
-//     if (!locationPattern.test(city)) {
-//       nextErrors.city = "Enter a valid city using letters and spaces only";
-//     }
-//     if (!locationPattern.test(state)) {
-//       nextErrors.state = "Enter a valid state using letters and spaces only";
-//     }
+//     // if (!locationPattern.test(city)) {
+//     //   nextErrors.city = "Enter a valid city using letters and spaces only";
+//     // }
+//     // if (!locationPattern.test(state)) {
+//     //   nextErrors.state = "Enter a valid state using letters and spaces only";
+//     // }
 //     if (!pincodePattern.test(form.pincode)) {
 //       nextErrors.pincode = "Enter a valid 6-digit pincode";
 //     }
@@ -140,8 +218,8 @@
 //       email: form.email.trim().toLowerCase(),
 //       mobile: form.mobile,
 //       address: form.address.trim(),
-//       city: form.city.trim(),
-//       state: form.state.trim(),
+//       // city: form.city.trim(),
+//       // state: form.state.trim(),
 //       pincode: form.pincode,
 //       service_id: Number(form.serviceId),
 //       service_type_id: Number(form.serviceTypeId),
@@ -164,7 +242,7 @@
 //       }
 
 //       setStatus("success");
-//       setForm({ ...initialForm, serviceId: presetServiceId });
+//       setForm(initialForm);
 //     } catch (error) {
 //       setStatus("error");
 //       setSubmitError(
@@ -220,34 +298,38 @@
 //         <input type="text" name="address" value={form.address} onChange={handleChange} placeholder="House no, street, locality" autoComplete="street-address" className={fieldClass("address")} aria-invalid={Boolean(errors.address)} />
 //       </Field>
 
-//       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+//       {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 //         <Field label="City" error={errors.city}>
 //           <input type="text" name="city" value={form.city} onChange={handleChange} placeholder="e.g. Noida" autoComplete="address-level2" className={fieldClass("city")} aria-invalid={Boolean(errors.city)} />
 //         </Field>
 //         <Field label="State" error={errors.state}>
 //           <input type="text" name="state" value={form.state} onChange={handleChange} placeholder="e.g. Uttar Pradesh" autoComplete="address-level1" className={fieldClass("state")} aria-invalid={Boolean(errors.state)} />
 //         </Field>
-//       </div>
+//       </div> */}
 
 //       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 //         <Field label="Appliance" error={errors.serviceId}>
-//           <select name="serviceId" value={form.serviceId} onChange={handleChange} className={fieldClass("serviceId")} aria-invalid={Boolean(errors.serviceId)}>
-//             <option value="">Select an appliance</option>
-//             {serviceOptions.map((service) => <option key={service.id} value={service.id}>{service.name}</option>)}
+//           <select name="serviceId" value={form.serviceId} onChange={handleChange} disabled={servicesLoading} className={fieldClass("serviceId")} aria-invalid={Boolean(errors.serviceId)}>
+//             <option value="">{servicesLoading ? "Loading appliances..." : "Select an appliance"}</option>
+//             {services.map((service) => <option key={service.id} value={service.id}>{service.name}</option>)}
 //           </select>
 //         </Field>
 //         <Field label="Service Type" error={errors.serviceTypeId}>
-//           <select name="serviceTypeId" value={form.serviceTypeId} onChange={handleChange} className={fieldClass("serviceTypeId")} aria-invalid={Boolean(errors.serviceTypeId)}>
-//             <option value="">Select a service type</option>
-//             {serviceTypeOptions.map((type) => <option key={type.id} value={type.id}>{type.name}</option>)}
+//           <select name="serviceTypeId" value={form.serviceTypeId} onChange={handleChange} disabled={!form.serviceId || serviceTypesLoading} className={fieldClass("serviceTypeId")} aria-invalid={Boolean(errors.serviceTypeId)}>
+//             <option value="">
+//               {!form.serviceId ? "Select an appliance first" : serviceTypesLoading ? "Loading..." : "Select a service type"}
+//             </option>
+//             {serviceTypes.map((type) => <option key={type.id} value={type.id}>{type.name}</option>)}
 //           </select>
 //         </Field>
 //       </div>
 
 //       <Field label="Issue" error={errors.issueId}>
-//         <select name="issueId" value={form.issueId} onChange={handleChange} disabled={!selectedService} className={fieldClass("issueId")} aria-invalid={Boolean(errors.issueId)}>
-//           <option value="">{selectedService ? "Select an issue" : "Select an appliance first"}</option>
-//           {selectedService?.issues.map((issue, index) => <option key={issue} value={index + 1}>{issue}</option>)}
+//         <select name="issueId" value={form.issueId} onChange={handleChange} disabled={!form.serviceId || issuesLoading} className={fieldClass("issueId")} aria-invalid={Boolean(errors.issueId)}>
+//           <option value="">
+//             {!form.serviceId ? "Select an appliance first" : issuesLoading ? "Loading..." : "Select an issue"}
+//           </option>
+//           {issues.map((issue) => <option key={issue.id} value={issue.id}>{issue.name}</option>)}
 //         </select>
 //       </Field>
 
@@ -302,9 +384,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { AlertCircle, CheckCircle2, Loader2, Send } from "lucide-react";
-
-const API_BASE = "http://localhost:5000/api/consumerservices";
-const BOOKING_API_URL = "http://localhost:5000/api/booking";
+import { getServices, getServiceTypes, getCommonIssues, submitBooking } from "@/lib/api.js";
 
 const timeOptions = ["09:00", "11:00", "13:00", "15:00", "17:00"];
 const fullNamePattern = /^[A-Za-z]+(?:\s+[A-Za-z]+)+$/;
@@ -335,19 +415,6 @@ function getLocalDate() {
   return new Date(today.getTime() - offset).toISOString().split("T")[0];
 }
 
-// De-duplicates servicetypes rows (see note on the services detail page —
-// some rows currently exist twice in the DB) keeping the most recent one.
-function dedupeByName(rows) {
-  const latestByName = new Map();
-  for (const row of rows) {
-    const existing = latestByName.get(row.name);
-    if (!existing || new Date(row.created_at) > new Date(existing.created_at)) {
-      latestByName.set(row.name, row);
-    }
-  }
-  return Array.from(latestByName.values());
-}
-
 export default function LeadForm({ presetService = "", compact = false }) {
   const [services, setServices] = useState([]);
   const [servicesLoading, setServicesLoading] = useState(true);
@@ -366,20 +433,13 @@ export default function LeadForm({ presetService = "", compact = false }) {
   // Load the appliance/service list once on mount.
   useEffect(() => {
     let cancelled = false;
-    async function loadServices() {
-      try {
-        const res = await fetch(`${API_BASE}/getallservices`);
-        const result = await res.json();
-        if (!cancelled && result?.success) {
-          setServices(result.data);
-        }
-      } catch (error) {
-        console.error("Error fetching services:", error);
-      } finally {
+    getServices()
+      .then((data) => {
+        if (!cancelled) setServices(data);
+      })
+      .finally(() => {
         if (!cancelled) setServicesLoading(false);
-      }
-    }
-    loadServices();
+      });
     return () => {
       cancelled = true;
     };
@@ -408,26 +468,18 @@ export default function LeadForm({ presetService = "", compact = false }) {
     setServiceTypesLoading(true);
     setIssuesLoading(true);
 
-    fetch(`${API_BASE}/servicetypes/${form.serviceId}`)
-      .then((res) => res.json())
-      .then((result) => {
-        if (!cancelled && result?.success) {
-          setServiceTypes(dedupeByName(result.data));
-        }
+    getServiceTypes(form.serviceId)
+      .then((data) => {
+        if (!cancelled) setServiceTypes(data);
       })
-      .catch((error) => console.error("Error fetching service types:", error))
       .finally(() => {
         if (!cancelled) setServiceTypesLoading(false);
       });
 
-    fetch(`${API_BASE}/commonissues/${form.serviceId}`)
-      .then((res) => res.json())
-      .then((result) => {
-        if (!cancelled && result?.success) {
-          setIssues(result.data);
-        }
+    getCommonIssues(form.serviceId)
+      .then((data) => {
+        if (!cancelled) setIssues(data);
       })
-      .catch((error) => console.error("Error fetching common issues:", error))
       .finally(() => {
         if (!cancelled) setIssuesLoading(false);
       });
@@ -517,8 +569,8 @@ export default function LeadForm({ presetService = "", compact = false }) {
       email: form.email.trim().toLowerCase(),
       mobile: form.mobile,
       address: form.address.trim(),
-      // city: form.city.trim(),
-      // state: form.state.trim(),
+      city: form?.city?.trim(),
+      state: form?.state?.trim(),
       pincode: form.pincode,
       service_id: Number(form.serviceId),
       service_type_id: Number(form.serviceTypeId),
@@ -529,17 +581,7 @@ export default function LeadForm({ presetService = "", compact = false }) {
     };
 
     try {
-      const response = await fetch(BOOKING_API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const responseBody = await response.json().catch(() => ({}));
-
-      if (!response.ok || responseBody.success === false) {
-        throw new Error(responseBody.message || "We could not submit your booking.");
-      }
-
+      await submitBooking(payload);
       setStatus("success");
       setForm(initialForm);
     } catch (error) {

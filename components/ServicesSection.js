@@ -48,37 +48,11 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ServiceIcon } from "@/components/IconMap";
+import { getServices } from "@/lib/api";
 
-// Server-side fetch — runs on the Next.js server (build time / revalidate),
-// NOT in the browser. This is what makes the data show up in the initial
-// HTML for SEO/crawlers, instead of loading after JS runs.
-async function getServices() {
-  try {
-    const res = await fetch(
-      "http://localhost:5000/api/consumerservices/getallservices",
-      {
-        // ISR: page is rebuilt in the background at most once every hour.
-        // Good for SEO (still statically served) while staying reasonably fresh.
-        // Change the number, or swap to `cache: "no-store"` if you need
-        // every request to hit the API live (loses static generation).
-        next: { revalidate: 3600 },
-      }
-    );
-
-    if (!res.ok) {
-      console.error("Services API returned", res.status);
-      return [];
-    }
-
-    const result = await res.json();
-    return result?.success ? result.data : [];
-  } catch (error) {
-    console.error("Error fetching services:", error);
-    return [];
-  }
-}
-
-// No "use client" here — this is an async Server Component.
+// No "use client" here — this is an async Server Component. Server-side
+// fetch means the HTML sent to crawlers already has real service data in
+// it (good for SEO), instead of loading after JS runs in the browser.
 export default async function ServicesSection() {
   const services = await getServices();
 

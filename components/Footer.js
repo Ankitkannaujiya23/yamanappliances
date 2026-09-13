@@ -114,11 +114,10 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10 py-5">
-        <div className="container-x flex flex-col items-center justify-between gap-2 text-xs text-brand-300 sm:flex-row">
-          <p>© {new Date().getFullYear()} Consumer Service Centre. All rights reserved.</p>
+        <div className="grid grid-cols-1 md:grid-cols-1  gap-4 text-center text-sm text-brand-200 sm:grid-cols-1">
+          <p>© {new Date().getFullYear()} Yaman Appliances. All rights reserved.</p>
           <p>
-            We are an independent service provider and not affiliated with
-            any appliance brand manufacturer.
+            Disclaimer: We operate as an independent service provider and are not affiliated with or authorized by any brand mentioned on this website. All services are performed by independent local technicians.
           </p>
         </div>
       </div>
