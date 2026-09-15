@@ -51,7 +51,7 @@ export default function Header() {
               alt="Yaman Appliances"
               width={62}
               height={60}
-              className=" w-full rounded-full object-cover"
+              className="rounded-full object-cover"
             />
           </span>
           <span className="leading-tight">
