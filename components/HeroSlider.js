@@ -146,9 +146,9 @@ const slides = [
     image: "/images/technicians.webp",
   },
   {
-    title: "Air Cooler Repair,",
+    title: "Washing Machine Repair,",
     highlight: "By Trusted Technicians",
-    desc: "Motor, pump, cooling pad and swing issues — book every appliance repair from one place.",
+    desc: "Front load, top load & semi-automatic washing machine repair.",
     bg: "from-brand-950/95 via-brand-900/85 to-brand-500/40",
     // TODO: replace with a real photo of your cooler technician
     image: "/images/technician.webp",
