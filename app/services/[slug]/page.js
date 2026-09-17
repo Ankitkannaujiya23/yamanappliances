@@ -320,11 +320,13 @@ export default async function ServiceDetailPage({ params }) {
     .filter((s) => s.slug !== service.slug)
     .slice(0, 4);
 
-  const [commonIssuesRaw, priceList] = await Promise.allSettled([
+  const [commonIssuesResult, priceListResult] = await Promise.allSettled([
     getCommonIssues(service.id),
     getPriceList(service.id),
   ]);
-  const commonIssues = commonIssuesRaw?.length ? commonIssuesRaw?.map((row) => row.name) : [];
+  const commonIssuesRaw = commonIssuesResult.status === "fulfilled" ? commonIssuesResult.value : [];
+  const priceList = priceListResult.status === "fulfilled" ? priceListResult.value : [];
+  const commonIssues = commonIssuesRaw?.length ? commonIssuesRaw?.map((row) => row?.name) : [];
 
   return (
     <>
