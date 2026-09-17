@@ -139,7 +139,7 @@ const slides = [
   },
   {
     title: "Refrigerator Repair,",
-    highlight: "Same-Day Across Delhi NCR",
+    highlight: "Same-Day Across Mumbai",
     desc: "Cooling problems, gas leakage, compressor issues — transparent pricing, no hidden charges.",
     bg: "from-brand-950/95 via-brand-900/85 to-accent-600/40",
     // TODO: replace with a real photo of your refrigerator technician

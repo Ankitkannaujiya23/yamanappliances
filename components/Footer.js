@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import { services } from "@/data/services";
 import { site } from "@/data/site";
+import logo from "../public/images/logo.webp";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -18,8 +20,16 @@ export default function Footer() {
       <div className="container-x grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <Link href="/" className="flex items-center gap-2">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-500 text-white">
-              <Wrench size={20} />
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl  text-white">
+              {/* <Wrench size={20} /> */}
+              <Image
+                key={logo}
+                src={logo}
+                alt="Yaman Appliances"
+                width={62}
+                height={60}
+                className="rounded-full object-cover"
+              />
             </span>
             <span className="text-lg font-extrabold text-white">
               Yaman Appliances
@@ -113,7 +123,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10 py-5">
+      <div className="border-t border-white/10 pb-16 pt-6">
         <div className="grid grid-cols-1 md:grid-cols-1  gap-4 text-center text-sm text-brand-200 sm:grid-cols-1">
           <p>© {new Date().getFullYear()} Yaman Appliances. All rights reserved.</p>
           <p>

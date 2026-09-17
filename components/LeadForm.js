@@ -518,9 +518,7 @@ export default function LeadForm({ presetService = "", compact = false }) {
     const state = form.state.trim();
 
     if (!name) nextErrors.customerName = "Full name is required";
-    else if (!fullNamePattern.test(name)) {
-      nextErrors.customerName = "Use at least two names with letters and spaces only";
-    }
+
 
     if (form.email.trim() && !emailPattern.test(form.email.trim())) {
       nextErrors.email = "Enter a valid email address";
