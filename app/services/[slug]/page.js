@@ -320,11 +320,11 @@ export default async function ServiceDetailPage({ params }) {
     .filter((s) => s.slug !== service.slug)
     .slice(0, 4);
 
-  const [commonIssuesRaw, priceList] = await Promise.all([
+  const [commonIssuesRaw, priceList] = await Promise.allSettled([
     getCommonIssues(service.id),
     getPriceList(service.id),
   ]);
-  const commonIssues = commonIssuesRaw.map((row) => row.name);
+  const commonIssues = commonIssuesRaw?.length ? commonIssuesRaw?.map((row) => row.name) : [];
 
   return (
     <>
@@ -362,7 +362,7 @@ export default async function ServiceDetailPage({ params }) {
             </p>
           </div>
 
-          {commonIssues.length > 0 && (
+          {commonIssues?.length > 0 && (
             <div>
               <h2 className="text-xl font-bold text-brand-950">
                 Common Issues We Fix
@@ -381,7 +381,7 @@ export default async function ServiceDetailPage({ params }) {
             </div>
           )}
 
-          {priceList.length > 0 && (
+          {priceList?.length > 0 && (
             <div>
               <h2 className="text-xl font-bold text-brand-950">
                 {service.name} Price List
@@ -399,7 +399,7 @@ export default async function ServiceDetailPage({ params }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {priceList.map((row, i) => (
+                    {priceList?.map((row, i) => (
                       <tr
                         key={row.item}
                         className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}
