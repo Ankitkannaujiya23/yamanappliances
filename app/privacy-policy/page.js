@@ -34,8 +34,8 @@ export default function PrivacyPolicyPage() {
             <div className="container-x py-14">
                 <div className="prose prose-slate mx-auto max-w-3xl">
                     <p className="text-[15px] leading-relaxed text-slate-600">
-                        This Privacy Policy explains what information {site.name} ("we",
-                        "us", "our") collects when you use this website to book an
+                        This Privacy Policy explains what information {site.name} (&quot;we&quot;,
+                        &quot;us&quot;, &quot;our&quot;) collects when you use this website to book an
                         appliance repair service, and how that information is used.
                     </p>
 
@@ -102,7 +102,7 @@ export default function PrivacyPolicyPage() {
                     </h2>
                     <p className="mb-4 text-[15px] leading-relaxed text-slate-600">
                         You may choose not to provide certain optional information (such
-                        as remarks) when booking. However, some fields are
+                        as email or remarks) when booking. However, some fields are
                         required to process your service request.
                     </p>
 
@@ -111,7 +111,7 @@ export default function PrivacyPolicyPage() {
                     </h2>
                     <p className="mb-4 text-[15px] leading-relaxed text-slate-600">
                         We may update this Privacy Policy from time to time. Any changes
-                        will be posted on this page with a revised "Last updated" date.
+                        will be posted on this page with a revised &quot;Last updated&quot; date.
                     </p>
 
                     <h2 className="mb-3 mt-10 text-xl font-bold text-brand-950">
