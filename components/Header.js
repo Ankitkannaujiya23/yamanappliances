@@ -108,6 +108,12 @@ export default function Header() {
           >
             Contact Us
           </Link>
+          <Link
+            href="/about"
+            className="text-sm font-semibold text-slate-700 hover:text-brand-600"
+          >
+            About Us
+          </Link>
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">

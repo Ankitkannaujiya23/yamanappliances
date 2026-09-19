@@ -84,6 +84,15 @@ export default function Footer() {
               <Link href="/" className="hover:text-accent-500">Home</Link>
             </li>
             <li>
+              <Link href="/about" className="hover:text-accent-500">About Us</Link>
+            </li>
+            <li>
+              <Link href="/privacy-policy" className="hover:text-accent-500">Privacy Policy</Link>
+            </li>
+            <li>
+              <Link href="/terms-conditions" className="hover:text-accent-500">Terms & Conditions</Link>
+            </li>
+            <li>
               <Link href="/blog" className="hover:text-accent-500">Blog</Link>
             </li>
             <li>
@@ -127,7 +136,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-1  gap-4 text-center text-sm text-brand-200 sm:grid-cols-1">
           <p>© {new Date().getFullYear()} Yaman Appliances. All rights reserved.</p>
           <p>
-            Disclaimer: We operate as an independent service provider and are not affiliated with or authorized by any brand mentioned on this website. All services are performed by independent local technicians.
+            Disclaimer: We are an independent service provider and have no official affiliation or connection with any of the brands displayed on this website. All repairs and services are performed independently by local technicians.
           </p>
         </div>
       </div>
