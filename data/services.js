@@ -53,29 +53,29 @@ export const services = [
       { item: "Panel Replacement", price: "On inspection" },
     ],
   },
-  {
-    slug: "air-cooler-repair",
-    name: "Air Cooler Repair",
-    icon: "Fan",
-    shortDesc: "Motor, pump, cooling pad and swing issue repair for all cooler types.",
-    image: "https://placehold.co/640x480/06aaf5/ffffff?text=Cooler+Repair",
-    description:
-      "Desert, tower or personal air coolers — we fix motor, pump, cooling pad, swing and electrical issues quickly so your cooler is ready before the heat hits.",
-    commonIssues: [
-      "Motor not running",
-      "Water pump not working",
-      "Weak / no cooling air",
-      "Swing not working",
-      "Water leakage",
-    ],
-    priceList: [
-      { item: "Visiting / Inspection Charge", price: "₹149" },
-      { item: "General Service", price: "₹349 onwards" },
-      { item: "Motor Repair / Replacement", price: "₹599 onwards" },
-      { item: "Pump Replacement", price: "₹399 onwards" },
-      { item: "Cooling Pad Replacement", price: "₹499 onwards (set)" },
-    ],
-  },
+  // {
+  //   slug: "air-cooler-repair",
+  //   name: "Air Cooler Repair",
+  //   icon: "Fan",
+  //   shortDesc: "Motor, pump, cooling pad and swing issue repair for all cooler types.",
+  //   image: "https://placehold.co/640x480/06aaf5/ffffff?text=Cooler+Repair",
+  //   description:
+  //     "Desert, tower or personal air coolers — we fix motor, pump, cooling pad, swing and electrical issues quickly so your cooler is ready before the heat hits.",
+  //   commonIssues: [
+  //     "Motor not running",
+  //     "Water pump not working",
+  //     "Weak / no cooling air",
+  //     "Swing not working",
+  //     "Water leakage",
+  //   ],
+  //   priceList: [
+  //     { item: "Visiting / Inspection Charge", price: "₹149" },
+  //     { item: "General Service", price: "₹349 onwards" },
+  //     { item: "Motor Repair / Replacement", price: "₹599 onwards" },
+  //     { item: "Pump Replacement", price: "₹399 onwards" },
+  //     { item: "Cooling Pad Replacement", price: "₹499 onwards (set)" },
+  //   ],
+  // },
   {
     slug: "refrigerator-repair",
     name: "Refrigerator Repair",
