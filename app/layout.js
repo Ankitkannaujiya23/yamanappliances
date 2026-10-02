@@ -11,20 +11,20 @@ export const metadata = {
     template: `%s | ${site.name}`,
   },
   description:
-    "Book trusted doorstep repair for AC, TV, Refrigerator, Washing Machine, Cooler and more home appliances across Delhi NCR. Transparent pricing, verified technicians, same-day service.",
+    "Book trusted doorstep repair for AC, TV, Refrigerator, Washing Machine, Cooler and more home appliances. Transparent pricing, verified technicians, same-day service.",
   keywords: [
-    "appliance repair Delhi NCR",
+    "appliances repair",
     "AC repair service",
     "washing machine repair",
     "refrigerator repair",
     "TV repair service",
     "home appliance repair near me",
-    "consumer service centre",
+    "yaman appliances",
   ],
   openGraph: {
     title: `${site.name} | Home Appliance Repair Service in ${site.city}`,
     description:
-      "Book trusted doorstep repair for AC, TV, Refrigerator, Washing Machine, Cooler and more home appliances across Delhi NCR.",
+      "Book trusted doorstep repair for AC, TV, Refrigerator, Washing Machine, Cooler and more home appliances.",
     url: "https://yamanappliances.com/",
     siteName: site.name,
     locale: "en_IN",

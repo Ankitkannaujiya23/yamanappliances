@@ -10,7 +10,7 @@ export const services = [
     shortDesc: "Split & window AC gas refill, servicing and repair at your doorstep.",
     image: "https://placehold.co/640x480/06aaf5/ffffff?text=AC+Repair",
     description:
-      "Our certified technicians handle all major AC brands for cooling issues, gas leakage, water leakage, noise problems, PCB faults and general servicing. Same-day doorstep visits available across Delhi NCR.",
+      "Our certified technicians handle all major AC brands for cooling issues, gas leakage, water leakage, noise problems, PCB faults and general servicing. Same-day doorstep visits available.",
     commonIssues: [
       "AC not cooling properly",
       "Gas leakage / low gas",
@@ -106,7 +106,7 @@ export const services = [
     shortDesc: "Front load, top load & semi-automatic washing machine repair.",
     image: "https://placehold.co/640x480/06aaf5/ffffff?text=WM+Repair",
     description:
-      "Drum not spinning, water not draining, motor issues or PCB faults — we service all washing machine brands and types across Delhi NCR.",
+      "Drum not spinning, water not draining, motor issues or PCB faults — we service all washing machine brands and types.",
     commonIssues: [
       "Drum not spinning",
       "Water not draining",

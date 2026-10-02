@@ -10,7 +10,7 @@ import { site } from "@/data/site";
 export const metadata = {
   title: `Home Appliance Repair Service in ${site.city}`,
   description:
-    "Book trusted doorstep repair for AC, TV, Refrigerator, Washing Machine, Cooler and more home appliances across Delhi NCR. Transparent pricing, verified technicians, same-day service.",
+    "Book trusted doorstep repair for AC, TV, Refrigerator, Washing Machine, Cooler and more home appliances. Transparent pricing, verified technicians, same-day service.",
   alternates: { canonical: "/" },
 };
 
