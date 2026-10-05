@@ -4,7 +4,7 @@ import { blogs } from "@/data/blogs";
 const BASE_URL = "https://yamanappliances.com/";
 
 export default function sitemap() {
-  const staticRoutes = ["", "/blog", "/contact"].map((route) => ({
+  const staticRoutes = ["", "/blog", "/contact", "/about", "/privacy-policy", "/terms-conditions"].map((route) => ({
     url: `${BASE_URL}${route}`,
     lastModified: new Date(),
     changeFrequency: "weekly",
