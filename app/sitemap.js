@@ -1,7 +1,7 @@
 import { services } from "@/data/services";
 import { blogs } from "@/data/blogs";
 
-const BASE_URL = "https://www.consumerservicecentre.example";
+const BASE_URL = "https://yamanappliances.com/";
 
 export default function sitemap() {
   const staticRoutes = ["", "/blog", "/contact"].map((route) => ({

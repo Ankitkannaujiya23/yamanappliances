@@ -4,6 +4,6 @@ export default function robots() {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://www.consumerservicecentre.example/sitemap.xml",
+    sitemap: "https://yamanappliances.com/sitemap.xml",
   };
 }
