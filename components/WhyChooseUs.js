@@ -11,7 +11,7 @@ const points = [
   {
     icon: ShieldCheck,
     title: "100% Satisfaction",
-    desc: "We do not just complete the job — if you're not satisfied, we do a free rework.",
+    desc: "We do not just complete the job — we back our quality with a dedicated 6-month service warranty on every repair.",
   },
   {
     icon: Eye,

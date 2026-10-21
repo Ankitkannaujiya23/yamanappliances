@@ -314,8 +314,9 @@ export default async function ServiceDetailPage({ params }) {
 
   // Real 404 (not a soft-404) when the slug doesn't exist in the API —
   // important so Google doesn't index broken/removed service pages.
+  console.log("Params:", params);
+  console.log("Service:", service);
   if (!service) notFound();
-
   const related = allServices
     .filter((s) => s.slug !== service.slug)
     .slice(0, 4);

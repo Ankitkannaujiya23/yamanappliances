@@ -83,7 +83,7 @@ export const services = [
     shortDesc: "Single door, double door & side-by-side fridge repair & gas filling.",
     image: "https://placehold.co/640x480/06aaf5/ffffff?text=Fridge+Repair",
     description:
-      "Cooling issues, gas leakage, compressor noise, ice-maker faults — our technicians service all fridge brands with doorstep pickup for major repairs where needed.",
+      "Cooling issues, gas leakage, compressor noise, ice-maker faults — our technicians service all fridge brands with 100% transparent doorstep repair for all major issues.",
     commonIssues: [
       "Not cooling properly",
       "Gas leakage",

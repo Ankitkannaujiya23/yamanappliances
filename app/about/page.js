@@ -68,8 +68,8 @@ export default async function AboutUsPage() {
                         {site.tagline}
                     </h1>
                     <p className="mx-auto mt-4 max-w-xl text-sm text-brand-200 sm:text-base">
-                        Connecting homes across {site.serviceAreas.join(", ")} with trained
-                        appliance repair technicians — booked online, serviced at your door.
+                        We currently serve {site.serviceAreas.join(", ")} and rapidly expanding to
+                        major cities across India, connecting custormers.
                     </p>
                 </div>
             </div>
@@ -81,10 +81,8 @@ export default async function AboutUsPage() {
                     <p className="mt-4 text-[15px] leading-relaxed text-slate-600">
                         {site.name} is a home appliance repair booking platform built to make
                         getting an appliance fixed simple: pick the appliance, describe the
-                        issue, and book a technician visit online. We currently serve{" "}
-                        {site.serviceAreas.join(", ")}, connecting customers with technicians
-                        for common household appliances like air conditioners, refrigerators,
-                        washing machines, water purifiers, geysers, and more.
+                        issue, and book a technician visit online. We currently serve {site.serviceAreas.join(", ")} and rapidly expanding to
+                        major cities across India, connecting custormers.
                     </p>
                     <p className="mt-4 text-[15px] leading-relaxed text-slate-600">
                         Every service on our platform lists its indicative pricing upfront, so
@@ -148,8 +146,7 @@ export default async function AboutUsPage() {
                             Where We Operate
                         </h2>
                         <p className="mt-3 text-[15px] text-slate-600">
-                            We currently take bookings across {site.serviceAreas.join(", ")}.
-                            Reach out and we&apos;ll confirm if your exact locality is covered.
+                            We currently take bookings across Mumbai, Varanasi, Lucknow, Azamgarh, and other major metropolitan areas in India.
                         </p>
                     </div>
                 </div>

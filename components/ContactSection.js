@@ -52,7 +52,7 @@ export default function ContactSection() {
               </span>
               <div>
                 <p className="text-sm font-bold text-brand-950">Service Area</p>
-                <p className="text-sm text-slate-500">{site.address}</p>
+                <p className="text-sm text-slate-500">{site.address} and all major cities across India</p>
               </div>
             </div>
 

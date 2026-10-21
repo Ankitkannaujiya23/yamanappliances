@@ -18,7 +18,7 @@ const slides = [
   },
   {
     title: "Refrigerator Repair,",
-    highlight: "Same-Day Across Mumbai",
+    highlight: "Same-Day Across Major Cities",
     desc: "Cooling problems, gas leakage, compressor issues — transparent pricing, no hidden charges.",
     bg: "from-brand-950/95 via-brand-900/85 to-accent-600/40",
     // TODO: replace with a real photo of your refrigerator technician
@@ -26,7 +26,7 @@ const slides = [
   },
   {
     title: "Washing Machine Repair,",
-    highlight: "By Trusted Technicians",
+    highlight: "Right at Your Doorstep",
     desc: "Front load, top load & semi-automatic washing machine repair.",
     bg: "from-brand-950/95 via-brand-900/85 to-brand-500/40",
     // TODO: replace with a real photo of your cooler technician

@@ -17,7 +17,7 @@ export default function ContactPage() {
           Get in Touch
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-sm text-brand-200">
-          Questions, bookings or partnership enquiries — we&apos;re happy to help.
+          Questions, bookings or business enquiries — Yaman Appliances is here to serve you across Mumbai and major cities of India.
         </p>
       </div>
 
@@ -53,7 +53,7 @@ export default function ContactPage() {
             </span>
             <div>
               <p className="text-sm font-bold text-brand-950">Service Area</p>
-              <p className="text-sm text-slate-500">{site.address}</p>
+              <p className="text-sm text-slate-500">{site.address} and all major cities across India</p>
             </div>
           </div>
 

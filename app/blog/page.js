@@ -21,8 +21,7 @@ export default function BlogListPage() {
             Tips, Guides & Appliance Care
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-sm text-brand-200">
-            Practical advice to help you maintain your appliances and know
-            when it is time to call a professional.
+            Expert troubleshooting guides and pro appliance maintenance tips by Yaman Appliances, trusted across Mumbai and major cities of India.
           </p>
         </div>
       </div>
