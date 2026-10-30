@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StickyCallBar from "@/components/StickyCallBar";
 import { site } from "@/data/site";
+import Script from "next/script";
 
 export const metadata = {
   metadataBase: new URL("https://yamanappliances.com"),
@@ -40,6 +41,22 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col bg-white">
+
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-Q2SKV73Q7M"
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Q2SKV73Q7M');
+          `}
+        </Script>
+
         <Header />
         <main className="flex-1 pb-16 lg:pb-0">{children}</main>
         <Footer />
